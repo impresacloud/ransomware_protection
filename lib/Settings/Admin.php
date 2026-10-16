@@ -49,7 +49,7 @@ class Admin implements ISettings {
 			'noteFileAdditions' => $this->getCustomList('notefile_additions'),
 			'extensionExclusions' => $this->getCustomList('extension_exclusions'),
 			'noteFileExclusions' => $this->getCustomList('notefile_exclusions'),
-		], 'blank');
+		], '');
 	}
 
 	protected function getCustomList($list) {
