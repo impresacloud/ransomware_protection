@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   static-analysis:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, nebulas-spot]
     strategy:
       # do not stop on another job's failure
       fail-fast: false
@@ -49,7 +49,7 @@ jobs:
         run: composer run psalm
 
   summary:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, nebulas-spot]
     needs: static-analysis
 
     if: always()

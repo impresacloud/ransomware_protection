@@ -12,7 +12,7 @@ on:
 
 jobs:
   update-nextcloud-ocp:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, nebulas-spot]
 
     strategy:
       fail-fast: false
@@ -67,4 +67,3 @@ jobs:
           labels: |
             dependencies
             3. to review
-

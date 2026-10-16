@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   php-lint:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, nebulas-spot]
     strategy:
       matrix:
         php-versions: [ "7.4", "8.0", "8.1", "8.2" ]
@@ -47,7 +47,7 @@ jobs:
   summary:
     permissions:
       contents: none
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, nebulas-spot]
     needs: php-lint
 
     if: always()
