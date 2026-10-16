@@ -45,7 +45,7 @@ jobs:
       - name: Resolve the complete compatibility dependency graph
         run: |
           composer require --dev nextcloud/ocp:${{ matrix.ocp-version }} --no-update
-          composer update --with-all-dependencies --ignore-platform-reqs
+          composer update --no-audit --with-all-dependencies --ignore-platform-reqs
 
       - name: Run coding standards check
         run: composer run psalm
