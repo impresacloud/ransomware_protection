@@ -3,23 +3,24 @@
 # https://github.com/nextcloud/.github
 # https://docs.github.com/en/actions/learn-github-actions/sharing-workflows-with-your-organization
 
-name: Static analysis
+name: Nextcloud static analysis
 
 on:
   pull_request:
   push:
-    branches:
-      - master
-      - main
-      - stable*
+    branches: ["**"]
+
+permissions:
+  contents: read
 
 concurrency:
-  group: psalm-${{ github.head_ref || github.run_id }}
+  group: psalm-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   static-analysis:
     runs-on: [self-hosted, Linux, X64, nebulas-spot]
+    timeout-minutes: 30
     strategy:
       # do not stop on another job's failure
       fail-fast: false
@@ -29,7 +30,9 @@ jobs:
     name: Nextcloud ${{ matrix.ocp-version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Set up php
         uses: shivammathur/setup-php@1a18b2267f80291a81ca1d33e7c851fe09e7dfc4 # v2
@@ -52,6 +55,7 @@ jobs:
 
   summary:
     runs-on: [self-hosted, Linux, X64, nebulas-spot]
+    timeout-minutes: 30
     needs: static-analysis
 
     if: always()

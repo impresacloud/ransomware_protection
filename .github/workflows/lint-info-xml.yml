@@ -3,31 +3,31 @@
 # https://github.com/nextcloud/.github
 # https://docs.github.com/en/actions/learn-github-actions/sharing-workflows-with-your-organization
 
-name: Lint
+name: Validate Nextcloud app metadata
 
 on:
   pull_request:
   push:
-    branches:
-      - main
-      - master
-      - stable*
+    branches: ["**"]
 
 permissions:
   contents: read
 
 concurrency:
-  group: lint-info-xml-${{ github.head_ref || github.run_id }}
+  group: lint-info-xml-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   xml-linters:
     runs-on: [self-hosted, Linux, X64, nebulas-spot]
+    timeout-minutes: 15
 
     name: info.xml lint
     steps:
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Download schema
         run: wget https://raw.githubusercontent.com/nextcloud/appstore/master/nextcloudappstore/api/v1/release/info.xsd
